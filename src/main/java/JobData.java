@@ -5,10 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -79,7 +76,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value)) {
                 jobs.add(row);
             }
         }
@@ -94,12 +91,28 @@ public class JobData {
      * @return      List of all jobs with at least one field containing the value
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
-
+        System.out.println(value);
         // load data, if not already loaded
         loadData();
 
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for(HashMap<String, String> job : allJobs) {
+            if(job.get("position type").toLowerCase().contains(value)) {
+                jobs.add(job);
+            } else if (job.get("name").toLowerCase().contains(value)) {
+                jobs.add(job);
+            } else if (job.get("employer").toLowerCase().contains(value)) {
+                jobs.add(job);
+            } else if (job.get("location").toLowerCase().contains(value)) {
+                jobs.add(job);
+            } else if (job.get("core competency").toLowerCase().contains(value)) {
+                jobs.add(job);
+            }
+        }
+
         // TODO - implement this method
-        return null;
+        return jobs;
     }
 
     /**
